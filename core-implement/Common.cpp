@@ -26,18 +26,98 @@ SOFTWARE.
 #include "core-api/api/Common.h"
 #undef PinMode
 
+#include "bridge/pins.h"
+
 #define standInFunc() printf("%s [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
-void pinMode(pin_size_t pinNumber, Arduino_PinMode pinMode){
+void indexMode(pin_size_t index, Arduino_PinMode pinMode){
     standInFunc();
+    printf("\tindex: %d\n", index);
+    DigitalInOut* gpio = pinGPIOByIndex(index);
+    if( gpio == NULL ){
+        gpio = new DigitalInOut(pinNameByIndex(index));
+        printf("\tcreating a new DigitalInOut object! 0x%08X\n", (uint32_t)gpio);
+    }
+    printf("\tgpio = 0x%08X\n", (uint32_t)gpio);
+    pinGPIOByIndex(index) = gpio;
 
-    switch( pinMode ){
-        case INPUT:             printf("\tINPUT\n"); break;
-        case OUTPUT:            printf("\tOUTPUT\n"); break;
-        case INPUT_PULLUP:      printf("\tINPUT_PULLUP\n"); break;
-        case INPUT_PULLDOWN:    printf("\tINPUT_PULLDOWN\n"); break;
+    switch (pinMode) {
+        case INPUT:
+            gpio->input();
+            gpio->mode(PullNone);
+            break;
+        case OUTPUT:
+            gpio->output();
+            break;
+        case INPUT_PULLUP:
+            gpio->input();
+            gpio->mode(PullUp);
+            break;
+        case INPUT_PULLDOWN:
         default:
-            printf("\tunknown pinMode given\n");
+            gpio->input();
+            gpio->mode(PullDown);
             break;
     }
 }
+
+void pinMode(pin_size_t pinNumber, Arduino_PinMode pinMode){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    printf("via PinNumber\n");
+    if( index == variantPinCount ){ return; }
+    indexMode(index, pinMode);
+}
+
+void pinMode(PinName pinName, Arduino_PinMode pinMode){
+    pin_size_t index = pinIndexByName(pinName);
+    printf("via PinName\n");
+    if( index == variantPinCount ){ return; }
+    indexMode(index, pinMode);
+}
+
+void indexDigitalWrite(pin_size_t index, PinStatus val){
+    mbed::DigitalInOut* gpio = pinGPIOByIndex(index);
+    if (gpio == NULL) {
+        gpio = new mbed::DigitalInOut(pinNameByIndex(index), PIN_OUTPUT, PullNone, val);
+        pinGPIOByIndex(index) = gpio;
+    }
+    gpio->write(val);
+}
+
+void digitalWrite(pin_size_t pinNumber, PinStatus val){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    printf("via PinNumber\n");
+    if( index == variantPinCount ){ return; }
+    indexDigitalWrite(index, val);
+}
+
+void digitalWrite(PinName pinName, PinStatus val){
+    pin_size_t index = pinIndexByName(pinName);
+    printf("via PinName\n");
+    if( index == variantPinCount ){ return; }
+    indexDigitalWrite(index, val);
+}
+
+PinStatus indexDigitalRead(pin_size_t index){
+    mbed::DigitalInOut* gpio = pinGPIOByIndex(index);
+    if (gpio == NULL) {
+        gpio = new mbed::DigitalInOut(pinNameByIndex(index), PIN_INPUT, PullNone, 0);
+        pinGPIOByIndex(index) = gpio;
+    }
+    return (PinStatus) gpio->read();
+}
+
+PinStatus digitalRead(pin_size_t pinNumber){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    printf("via PinNumber\n");
+    if( index == variantPinCount ){ return LOW; }
+    return indexDigitalRead(index);
+}
+
+PinStatus digitalRead(PinName pinName){
+    pin_size_t index = pinIndexByName(pinName);
+    printf("via PinName\n");
+    if( index == variantPinCount ){ return LOW; }
+    return indexDigitalRead(index);
+}
+

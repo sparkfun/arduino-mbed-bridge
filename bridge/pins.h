@@ -20,17 +20,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// The "Arduino.h" header file is intended to only be included by C++ sources.
+#ifndef _ARDUINO_MBED_BRIDGE_PINS_H_
+#define _ARDUINO_MBED_BRIDGE_PINS_H_
 
-#ifndef _ARDUINO_H_
-#define _ARDUINO_H_
+#include "Arduino.h"
 
-#include "mbed.h"
+typedef struct _PinState {
+    PinName name;
+    pin_size_t number;
+    InterruptIn* irq;
+    // PwmOut* pwm; // todo: implement this in mbed
+    DigitalInOut* gpio;
+} PinState;
 
-#define PinMode Arduino_PinMode         // note: this changes the Arduino API for mbed compatibility - use Arduino_PinMode where PinMode was specified in the Arduino API
-#include "core-api/api/ArduinoAPI.h"
-#undef PinMode
+pin_size_t pinIndexByName(PinName name);
+pin_size_t pinIndexByNumber(pin_size_t number);
 
-#include "pins.h"
+PinName pinNameByIndex(pin_size_t index);
+pin_size_t pinNumberByIndex(pin_size_t index);
 
-#endif // _ARDUINO_H_
+#define pinGPIOByIndex(I) variantPinStates[I].gpio
+
+void        pinMode(PinName pinName, Arduino_PinMode pinMode);
+void        digitalWrite(PinName pinName, PinStatus val);
+PinStatus   digitalRead(PinName pinName);
+
+extern const pin_size_t variantPinCount;
+extern PinState variantPinStates[];
+
+#endif // _ARDUINO_MBED_BRIDGE_PINS_H_

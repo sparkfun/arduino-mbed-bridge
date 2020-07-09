@@ -20,17 +20,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// The "Arduino.h" header file is intended to only be included by C++ sources.
+#include "bridge/pins.h"
 
-#ifndef _ARDUINO_H_
-#define _ARDUINO_H_
+pin_size_t pinIndexByName(PinName name){
+    pin_size_t index = 0;
+    while(index < variantPinCount){
+        if(variantPinStates[index].name == name){ return index; }
+        index++;
+    }
+    return variantPinCount;
+}
 
-#include "mbed.h"
+pin_size_t pinIndexByNumber(pin_size_t number){
+    pin_size_t index = 0;
+    while(index < variantPinCount){
+        if(variantPinStates[index].number == number){ return index; }
+        index++;
+    }
+    return variantPinCount;
+}
 
-#define PinMode Arduino_PinMode         // note: this changes the Arduino API for mbed compatibility - use Arduino_PinMode where PinMode was specified in the Arduino API
-#include "core-api/api/ArduinoAPI.h"
-#undef PinMode
+PinName pinNameByIndex(pin_size_t index){
+    if(index >= variantPinCount){ return NC; }
+    return variantPinStates[index].name;
+}
 
-#include "pins.h"
-
-#endif // _ARDUINO_H_
+pin_size_t pinNumberByIndex(pin_size_t index){
+    if(index >= variantPinCount){ return (pin_size_t)NC; }
+    return variantPinStates[index].number;
+}
