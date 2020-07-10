@@ -26,9 +26,7 @@ SOFTWARE.
 #include "core-api/api/Common.h"
 #undef PinMode
 
-#include "bridge/pins.h"
-
-#define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
+#include "core-extend/Common.h"
 
 // unsigned long indexPulseIn(pin_size_t index, uint8_t state, unsigned long timeout){
 //     standInFunc();

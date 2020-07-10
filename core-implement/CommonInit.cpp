@@ -24,6 +24,8 @@ SOFTWARE.
 #include "core-api/api/Common.h"
 #undef PinMode
 
+#include "core-extend/Common.h"
+
 extern void initTimer(void);
 
 void init(void){
