@@ -40,12 +40,22 @@ pin_size_t pinIndexByNumber(pin_size_t number){
     return variantPinCount;
 }
 
+pin_size_t pinNumberByIndex(pin_size_t index){
+    if(index >= variantPinCount){ return (pin_size_t)NC; }
+    return variantPinStates[index].number;
+}
+
+pin_size_t pinNumberByName(PinName name){
+    pin_size_t index = pinIndexByName(name);
+    return pinNumberByIndex(index);
+}
+
 PinName pinNameByIndex(pin_size_t index){
     if(index >= variantPinCount){ return NC; }
     return variantPinStates[index].name;
 }
 
-pin_size_t pinNumberByIndex(pin_size_t index){
-    if(index >= variantPinCount){ return (pin_size_t)NC; }
-    return variantPinStates[index].number;
+PinName pinNameByNumber(pin_size_t number){
+    pin_size_t index = pinIndexByNumber(number);
+    return pinNameByIndex(index);
 }

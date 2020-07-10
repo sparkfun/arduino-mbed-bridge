@@ -37,8 +37,11 @@ typedef struct _PinState {
 pin_size_t pinIndexByName(PinName name);
 pin_size_t pinIndexByNumber(pin_size_t number);
 
-PinName pinNameByIndex(pin_size_t index);
 pin_size_t pinNumberByIndex(pin_size_t index);
+pin_size_t pinNumberByName(pin_size_t number);
+
+PinName pinNameByIndex(pin_size_t index);
+PinName pinNameByNumber(pin_size_t number);
 
 #define pinIRQByIndex(I) variantPinStates[I].irq
 #define pinPWMByIndex(I) variantPinStates[I].pwm

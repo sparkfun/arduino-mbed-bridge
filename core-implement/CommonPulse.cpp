@@ -27,6 +27,7 @@ SOFTWARE.
 #undef PinMode
 
 #include "core-extend/Common.h"
+#include "bridge/pins.h"
 
 // unsigned long indexPulseIn(pin_size_t index, uint8_t state, unsigned long timeout){
 //     standInFunc();

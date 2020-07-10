@@ -27,6 +27,7 @@ SOFTWARE.
 #undef PinMode
 
 #include "core-extend/Common.h"
+#include "bridge/pins.h"
 
 #define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 

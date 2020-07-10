@@ -25,8 +25,6 @@ SOFTWARE.
 
 #include "Arduino.h"
 
-#include "bridge/pins.h"
-
 void            indexPinMode(pin_size_t index, Arduino_PinMode pinMode);
 void            pinMode(PinName pinName, Arduino_PinMode pinMode);
 
