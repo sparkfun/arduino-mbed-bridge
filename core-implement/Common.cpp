@@ -28,7 +28,7 @@ SOFTWARE.
 
 #include "bridge/pins.h"
 
-#define standInFunc() printf("%s [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
+#define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
 void indexMode(pin_size_t index, Arduino_PinMode pinMode){
     standInFunc();
@@ -36,9 +36,9 @@ void indexMode(pin_size_t index, Arduino_PinMode pinMode){
     DigitalInOut* gpio = pinGPIOByIndex(index);
     if( gpio == NULL ){
         gpio = new DigitalInOut(pinNameByIndex(index));
-        printf("\tcreating a new DigitalInOut object! 0x%08X\n", (uint32_t)gpio);
+        printf("\tcreating a new DigitalInOut object! 0x%08X\n", (unsigned int)gpio);
     }
-    printf("\tgpio = 0x%08X\n", (uint32_t)gpio);
+    printf("\tgpio = 0x%08X\n", (unsigned int)gpio);
     pinGPIOByIndex(index) = gpio;
 
     switch (pinMode) {
@@ -121,3 +121,52 @@ PinStatus digitalRead(PinName pinName){
     return indexDigitalRead(index);
 }
 
+// static int res_analog_w = 8;
+// static int res_analog_r = 10;
+void indexAnalogWriteDAC(pin_size_t index, int val){
+    standInFunc();
+    // // todo: support mbed DAC modules
+    // mbed::AnalogOut* dac = pinDACByIndex(index);
+    // if (dac == NULL) {
+    //     dac = new mbed::AnalogOut(pinNameByIndex(index));
+    //     pinDACByIndex(index) = dac;
+    // }
+    // float percent = (float)val/(float)(1 << res_analog_w);
+    // dac->write(percent);
+}
+
+void analogWriteDAC(PinName pinName, int val){
+    pin_size_t index = pinIndexByName(pinName);
+    if( index == variantPinCount ){ return; }
+    indexAnalogWriteDAC(index, val);
+}
+
+void analogWriteDAC(pin_size_t pinNumber, int val){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return; }
+    indexAnalogWriteDAC(index, val);
+}
+
+void indexAnalogWrite(pin_size_t index, int val){
+    standInFunc();
+    // mbed::PwmOut* pwm = pinPWMByIndex(index);
+    // if (pwm == NULL) {
+    //     pwm = new mbed::PwmOut(pinNameByIndex(index));
+    //     pinPWMByIndex(index) = pwm;
+    // }
+    // pwm->period_ms(2);
+    // float percent = (float)val/(float)(1 << write_resolution);
+    // pwm->write(percent);
+}
+
+void analogWrite(PinName pinName, int val){
+    pin_size_t index = pinIndexByName(pinName);
+    if( index == variantPinCount ){ return; }
+    indexAnalogWrite(index, val);
+}
+
+void analogWrite(pin_size_t pinNumber, int val){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return; }
+    indexAnalogWrite(index, val);
+}

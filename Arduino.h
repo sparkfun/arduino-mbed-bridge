@@ -31,6 +31,6 @@ SOFTWARE.
 #include "core-api/api/ArduinoAPI.h"
 #undef PinMode
 
-#include "pins.h"
+#include "variant.h"                    // user-supplied
 
 #endif // _ARDUINO_H_
