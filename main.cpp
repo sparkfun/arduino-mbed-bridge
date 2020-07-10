@@ -27,6 +27,8 @@ extern void loop(void);
 
 int main(void)
 {
+  init();
+  initVariant();
   setup();
   for (;;)
   {

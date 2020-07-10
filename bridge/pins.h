@@ -45,12 +45,27 @@ pin_size_t pinNumberByIndex(pin_size_t index);
 #define pinDACByIndex(I) variantPinStates[I].dac
 #define pinGPIOByIndex(I) variantPinStates[I].gpio
 
-void        pinMode(PinName pinName, Arduino_PinMode pinMode);
-void        digitalWrite(PinName pinName, PinStatus val);
-PinStatus   digitalRead(PinName pinName);
-void        analogWriteDAC(PinName pinName, int val);
-void        analogWriteDAC(pin_size_t pinNumber, int val);
-void        analogWrite(PinName pinName, int val);
+// API extensions
+void            indexPinMode(pin_size_t index, Arduino_PinMode pinMode);
+void            pinMode(PinName pinName, Arduino_PinMode pinMode);
+void            indexDigitalWrite(pin_size_t index, PinStatus val);
+void            digitalWrite(PinName pinName, PinStatus val);
+PinStatus       indexDigitalRead(pin_size_t index);
+PinStatus       digitalRead(PinName pinName);
+void            indexAnalogWriteDAC(pin_size_t index, int val);
+void            analogWriteDAC(PinName pinName, int val);
+void            analogWriteDAC(pin_size_t pinNumber, int val);
+void            indexAnalogWrite(pin_size_t index, int val);
+void            analogWrite(PinName pinName, int val);
+
+#ifdef __cplusplus
+
+unsigned long   indexPulseIn(pin_size_t index, uint8_t state, unsigned long timeout = 1000000L);
+unsigned long   pulseIn(PinName pinName, uint8_t state, unsigned long timeout = 1000000L);
+unsigned long   indexPulseInLong(pin_size_t index, uint8_t state, unsigned long timeout = 1000000L);
+unsigned long   pulseInLong(PinName pinName, uint8_t state, unsigned long timeout = 1000000L);
+
+#endif // __cplusplus
 
 extern const pin_size_t variantPinCount;
 extern PinState variantPinStates[];

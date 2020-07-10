@@ -147,17 +147,17 @@ void analogWriteDAC(pin_size_t pinNumber, int val){
     indexAnalogWriteDAC(index, val);
 }
 
-void indexAnalogWrite(pin_size_t index, int val){
-    standInFunc();
-    // mbed::PwmOut* pwm = pinPWMByIndex(index);
-    // if (pwm == NULL) {
-    //     pwm = new mbed::PwmOut(pinNameByIndex(index));
-    //     pinPWMByIndex(index) = pwm;
-    // }
-    // pwm->period_ms(2);
-    // float percent = (float)val/(float)(1 << res_analog_w);
-    // pwm->write(percent);
-}
+// void indexAnalogWrite(pin_size_t index, int val){
+//     standInFunc();
+//     // mbed::PwmOut* pwm = pinPWMByIndex(index);
+//     // if (pwm == NULL) {
+//     //     pwm = new mbed::PwmOut(pinNameByIndex(index));
+//     //     pinPWMByIndex(index) = pwm;
+//     // }
+//     // pwm->period_ms(2);
+//     // float percent = (float)val/(float)(1 << res_analog_w);
+//     // pwm->write(percent);
+// }
 
 void analogWrite(PinName pinName, int val){
     pin_size_t index = pinIndexByName(pinName);
@@ -169,4 +169,74 @@ void analogWrite(pin_size_t pinNumber, int val){
     pin_size_t index = pinIndexByNumber(pinNumber);
     if( index == variantPinCount ){ return; }
     indexAnalogWrite(index, val);
+}
+
+// #if DEVICE_LPTICKER
+// static mbed::LowPowerTimer t;
+// #else
+static mbed::Timer t;
+// #endif
+
+using namespace std::chrono_literals;
+using namespace std::chrono;
+
+void initTimer(void){
+    t.start();
+}
+
+unsigned long millis(void){
+    return duration_cast<milliseconds>(t.elapsed_time()).count();
+}
+
+unsigned long micros(void){
+    return t.elapsed_time().count();
+}
+
+void delay(unsigned long ms){
+#ifndef NO_RTOS
+  rtos::ThisThread::sleep_for(ms * 1ms);
+#else
+  wait_us(ms * 1000);
+#endif
+}
+
+void delayMicroseconds(unsigned int us){
+    wait_us(us);
+}
+
+// unsigned long indexPulseIn(pin_size_t index, uint8_t state, unsigned long timeout){
+//     standInFunc();
+//     return 0;
+// }
+
+unsigned long pulseIn(PinName pinName, uint8_t state, unsigned long timeout){
+    pin_size_t index = pinIndexByName(pinName);
+    if( index == variantPinCount ){ return 0; }
+    return indexPulseIn(index, state, timeout);
+}
+
+unsigned long pulseIn(pin_size_t pinNumber, uint8_t state, unsigned long timeout){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return 0; }
+    return indexPulseIn(index, state, timeout);
+}
+
+unsigned long indexPulseInLong(pin_size_t index, uint8_t state, unsigned long timeout){
+    return indexPulseIn(index, state, timeout); // pulseIn and pulseInLong are identical
+}
+
+unsigned long pulseInLong(PinName pinName, uint8_t state, unsigned long timeout){
+    pin_size_t index = pinIndexByName(pinName);
+    if( index == variantPinCount ){ return 0; }
+    return pulseInLong(index, state, timeout);
+}
+
+unsigned long pulseInLong(pin_size_t pinNumber, uint8_t state, unsigned long timeout){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return 0; }
+    return pulseInLong(index, state, timeout);
+}
+
+void init(void){
+    initTimer();
 }
