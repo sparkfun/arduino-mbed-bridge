@@ -20,15 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "mbed.h"
-
 #define PinMode Arduino_PinMode
 #include "core-api/api/Common.h"
 #undef PinMode
-
-#include "bridge/pins.h"
-
-#define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
 extern void initTimer(void);
 
