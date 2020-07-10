@@ -155,7 +155,7 @@ void indexAnalogWrite(pin_size_t index, int val){
     //     pinPWMByIndex(index) = pwm;
     // }
     // pwm->period_ms(2);
-    // float percent = (float)val/(float)(1 << write_resolution);
+    // float percent = (float)val/(float)(1 << res_analog_w);
     // pwm->write(percent);
 }
 
