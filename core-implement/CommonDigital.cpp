@@ -30,7 +30,7 @@ SOFTWARE.
 
 #define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
-void indexMode(pin_size_t index, Arduino_PinMode pinMode){
+void indexPinMode(pin_size_t index, Arduino_PinMode pinMode){
     standInFunc();
     printf("\tindex: %d\n", index);
     DigitalInOut* gpio = pinGPIOByIndex(index);
@@ -65,14 +65,14 @@ void pinMode(pin_size_t pinNumber, Arduino_PinMode pinMode){
     pin_size_t index = pinIndexByNumber(pinNumber);
     printf("via PinNumber\n");
     if( index == variantPinCount ){ return; }
-    indexMode(index, pinMode);
+    indexPinMode(index, pinMode);
 }
 
 void pinMode(PinName pinName, Arduino_PinMode pinMode){
     pin_size_t index = pinIndexByName(pinName);
     printf("via PinName\n");
     if( index == variantPinCount ){ return; }
-    indexMode(index, pinMode);
+    indexPinMode(index, pinMode);
 }
 
 void indexDigitalWrite(pin_size_t index, PinStatus val){
