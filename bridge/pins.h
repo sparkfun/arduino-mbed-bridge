@@ -38,7 +38,7 @@ pin_size_t pinIndexByName(PinName name);
 pin_size_t pinIndexByNumber(pin_size_t number);
 
 pin_size_t pinNumberByIndex(pin_size_t index);
-pin_size_t pinNumberByName(pin_size_t number);
+pin_size_t pinNumberByName(PinName name);
 
 PinName pinNameByIndex(pin_size_t index);
 PinName pinNameByNumber(pin_size_t number);
