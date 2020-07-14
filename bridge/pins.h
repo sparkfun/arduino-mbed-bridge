@@ -20,8 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef _ARDUINO_MBED_BRIDGE_PINS_H_
-#define _ARDUINO_MBED_BRIDGE_PINS_H_
+#ifndef _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_
+#define _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_
 
 #include "Arduino.h"
 
@@ -51,4 +51,4 @@ PinName pinNameByNumber(pin_size_t number);
 extern const pin_size_t variantPinCount;
 extern PinState variantPinStates[];
 
-#endif // _ARDUINO_MBED_BRIDGE_PINS_H_
+#endif // _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_

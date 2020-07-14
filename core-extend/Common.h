@@ -20,8 +20,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef _ARDUINO_MBED_BRIDGE_EXTEND_COMMON_H_
-#define _ARDUINO_MBED_BRIDGE_EXTEND_COMMON_H_
+#ifndef _ARDUINO_MBED_BRIDGE_CORE_EXTEND_COMMON_H_
+#define _ARDUINO_MBED_BRIDGE_CORE_EXTEND_COMMON_H_
 
 #include "Arduino.h"
 
@@ -50,4 +50,4 @@ unsigned long   pulseInLong(PinName pinName, uint8_t state, unsigned long timeou
 
 #endif // __cplusplus
 
-#endif // _ARDUINO_MBED_BRIDGE_EXTEND_COMMON_H_
+#endif // _ARDUINO_MBED_BRIDGE_CORE_EXTEND_COMMON_H_

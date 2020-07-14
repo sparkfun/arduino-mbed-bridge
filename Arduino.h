@@ -22,7 +22,7 @@ SOFTWARE.
 
 // The "Arduino.h" header file is intended to only be included by C++ sources.
 
-#ifndef _ARDUINO_H_
+#ifndef _ARDUINO_MBED_BRIDGE_ARDUINO_H_
 #define _ARDUINO_H_
 
 #include "mbed.h"
@@ -35,4 +35,4 @@ SOFTWARE.
 
 #include "variant.h"                    // user-supplied
 
-#endif // _ARDUINO_H_
+#endif // _ARDUINO_MBED_BRIDGE_ARDUINO_H_
