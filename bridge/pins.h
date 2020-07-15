@@ -29,8 +29,9 @@ typedef struct _PinState {
     PinName name;
     pin_size_t number;
     InterruptIn* irq;
-    // PwmOut* pwm; // todo: implement
+    // PwmOut* pwm; // todo: implement this
     // AnalogOut* dac; // todo: implement this
+    // AnalogIn* adc; // todo: implement this
     DigitalInOut* gpio;
 } PinState;
 
@@ -46,6 +47,7 @@ PinName pinNameByNumber(pin_size_t number);
 #define pinIRQByIndex(I) variantPinStates[I].irq
 #define pinPWMByIndex(I) variantPinStates[I].pwm
 #define pinDACByIndex(I) variantPinStates[I].dac
+#define pinADCByIndex(I) variantPinStates[I].adc
 #define pinGPIOByIndex(I) variantPinStates[I].gpio
 
 extern const pin_size_t variantPinCount;

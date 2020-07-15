@@ -31,6 +31,33 @@ SOFTWARE.
 
 #define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
+// int indexAnalogRead(pin_size_t index){
+//     // todo: support mbed AnalogIn modules
+//     mbed::AnalogIn* adc = pinADCByIndex(index);
+//     if (adc == NULL) {
+//         adc = new mbed::AnalogIn(name);
+//         pinADCByIndex(index) = adc;
+// #ifdef ANALOG_CONFIG
+//         if (isAdcConfigChanged) {
+//             adc->configure(adcCurrentConfig);
+//         }
+// #endif
+//     }
+//     return (adc->read_u16() >> (16 - read_resolution));
+// }
+
+int analogRead(PinName pinName){
+    pin_size_t index = pinIndexByName(pinName);
+    if( index == variantPinCount ){ return; }
+    return indexAnalogRead(index);
+}
+
+int analogRead(pin_size_t pinNumber){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return; }
+    return indexAnalogRead(index);
+}
+
 // static int res_analog_w = 8;
 // static int res_analog_r = 10;
 void indexAnalogWriteDAC(pin_size_t index, int val){

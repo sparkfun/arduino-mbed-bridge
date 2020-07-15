@@ -34,6 +34,9 @@ void            digitalWrite(PinName pinName, PinStatus val);
 PinStatus       indexDigitalRead(pin_size_t index);
 PinStatus       digitalRead(PinName pinName);
 
+int indexAnalogRead(pin_size_t index);
+int analogRead(PinName pinName);
+
 void            indexAnalogWriteDAC(pin_size_t index, int val);
 void            analogWriteDAC(PinName pinName, int val);
 void            analogWriteDAC(pin_size_t pinNumber, int val);
