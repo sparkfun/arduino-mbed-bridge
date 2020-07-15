@@ -32,14 +32,10 @@ SOFTWARE.
 #define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
 
 void indexPinMode(pin_size_t index, Arduino_PinMode pinMode){
-    standInFunc();
-    printf("\tindex: %d\n", index);
     DigitalInOut* gpio = pinGPIOByIndex(index);
     if( gpio == NULL ){
         gpio = new DigitalInOut(pinNameByIndex(index));
-        printf("\tcreating a new DigitalInOut object! 0x%08X\n", (unsigned int)gpio);
     }
-    printf("\tgpio = 0x%08X\n", (unsigned int)gpio);
     pinGPIOByIndex(index) = gpio;
 
     switch (pinMode) {

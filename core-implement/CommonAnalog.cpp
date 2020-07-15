@@ -48,13 +48,13 @@ SOFTWARE.
 
 int analogRead(PinName pinName){
     pin_size_t index = pinIndexByName(pinName);
-    if( index == variantPinCount ){ return; }
+    if( index == variantPinCount ){ return 0; }
     return indexAnalogRead(index);
 }
 
 int analogRead(pin_size_t pinNumber){
     pin_size_t index = pinIndexByNumber(pinNumber);
-    if( index == variantPinCount ){ return; }
+    if( index == variantPinCount ){ return 0; }
     return indexAnalogRead(index);
 }
 
@@ -106,4 +106,28 @@ void analogWrite(pin_size_t pinNumber, int val){
     pin_size_t index = pinIndexByNumber(pinNumber);
     if( index == variantPinCount ){ return; }
     indexAnalogWrite(index, val);
+}
+
+// void indexTone(pin_size_t index, unsigned int frequency, usigned long duration){
+//     // // todo: implement with mbed
+//     // mbed::PwmOut* pwm = pinPWMByIndex(index);
+//     // if (pwm == NULL) {
+//     //     pwm = new mbed::PwmOut(pinNameByIndex(index));
+//     //     pinPWMByIndex(index) = pwm;
+//     // }
+//     // pwm->period_ms(2);
+//     // float percent = (float)val/(float)(1 << res_analog_w);
+//     // pwm->write(percent);
+// }
+
+void tone(uint8_t pinNumber, unsigned int frequency, unsigned long duration){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return; }
+    indexTone(index, frequency, duration);
+}
+
+void noTone(uint8_t pinNumber){
+    pin_size_t index = pinIndexByNumber(pinNumber);
+    if( index == variantPinCount ){ return; }
+    indexTone(index, 0, 0);
 }
