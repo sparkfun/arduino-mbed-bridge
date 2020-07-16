@@ -29,8 +29,6 @@ SOFTWARE.
 #include "core-extend/Common.h"
 #include "bridge/pins.h"
 
-#define standInFunc() printf("Stand-In for '%s' [file: %s, line: %d]\n", __FUNCTION__, __FILE__, __LINE__)
-
 void indexPinMode(pin_size_t index, Arduino_PinMode pinMode){
     DigitalInOut* gpio = pinGPIOByIndex(index);
     if( gpio == NULL ){
@@ -60,14 +58,12 @@ void indexPinMode(pin_size_t index, Arduino_PinMode pinMode){
 
 void pinMode(pin_size_t pinNumber, Arduino_PinMode pinMode){
     pin_size_t index = pinIndexByNumber(pinNumber);
-    printf("via PinNumber\n");
     if( index == variantPinCount ){ return; }
     indexPinMode(index, pinMode);
 }
 
 void pinMode(PinName pinName, Arduino_PinMode pinMode){
     pin_size_t index = pinIndexByName(pinName);
-    printf("via PinName\n");
     if( index == variantPinCount ){ return; }
     indexPinMode(index, pinMode);
 }
@@ -83,14 +79,12 @@ void indexDigitalWrite(pin_size_t index, PinStatus val){
 
 void digitalWrite(pin_size_t pinNumber, PinStatus val){
     pin_size_t index = pinIndexByNumber(pinNumber);
-    printf("via PinNumber\n");
     if( index == variantPinCount ){ return; }
     indexDigitalWrite(index, val);
 }
 
 void digitalWrite(PinName pinName, PinStatus val){
     pin_size_t index = pinIndexByName(pinName);
-    printf("via PinName\n");
     if( index == variantPinCount ){ return; }
     indexDigitalWrite(index, val);
 }
@@ -106,14 +100,12 @@ PinStatus indexDigitalRead(pin_size_t index){
 
 PinStatus digitalRead(pin_size_t pinNumber){
     pin_size_t index = pinIndexByNumber(pinNumber);
-    printf("via PinNumber\n");
     if( index == variantPinCount ){ return LOW; }
     return indexDigitalRead(index);
 }
 
 PinStatus digitalRead(PinName pinName){
     pin_size_t index = pinIndexByName(pinName);
-    printf("via PinName\n");
     if( index == variantPinCount ){ return LOW; }
     return indexDigitalRead(index);
 }

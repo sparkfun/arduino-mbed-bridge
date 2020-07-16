@@ -46,7 +46,7 @@ void            analogWrite(PinName pinName, int val);
 
 #ifdef __cplusplus
 
-void indexTone(pin_size_t index, unsigned int frequency, unsigned long duration = 0);
+void            indexTone(pin_size_t index, unsigned int frequency, unsigned long duration = 0);
 unsigned long   indexPulseIn(pin_size_t index, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long   pulseIn(PinName pinName, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long   indexPulseInLong(pin_size_t index, uint8_t state, unsigned long timeout = 1000000L);
