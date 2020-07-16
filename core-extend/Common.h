@@ -44,6 +44,12 @@ void            analogWriteDAC(pin_size_t pinNumber, int val);
 void            indexAnalogWrite(pin_size_t index, int val);
 void            analogWrite(PinName pinName, int val);
 
+void indexShiftOut(pin_size_t data_index, pin_size_t clock_index, BitOrder bitOrder, uint8_t val);
+void shiftOut(PinName dataPinName, PinName clockPinName, BitOrder bitOrder, uint8_t val);
+
+pin_size_t indexShiftIn(pin_size_t data_index, pin_size_t clock_index, BitOrder bitOrder);
+pin_size_t shiftIn(PinName dataPinName, PinName clockPinName, BitOrder bitOrder);
+
 #ifdef __cplusplus
 
 void            indexTone(pin_size_t index, unsigned int frequency, unsigned long duration = 0);
