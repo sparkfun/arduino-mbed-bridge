@@ -23,7 +23,11 @@ SOFTWARE.
 #ifndef _ARDUINO_MBED_BRIDGE_CORE_EXTEND_COMMON_H_
 #define _ARDUINO_MBED_BRIDGE_CORE_EXTEND_COMMON_H_
 
-#include "Arduino.h"
+#include "mbed.h"
+
+#define PinMode Arduino_PinMode         // note: this changes the Arduino API for mbed compatibility - use Arduino_PinMode where PinMode was specified in the Arduino API
+#include "core-api/api/Common.h"
+#undef PinMode
 
 void            indexPinMode(pin_size_t index, Arduino_PinMode pinMode);
 void            pinMode(PinName pinName, Arduino_PinMode pinMode);
@@ -50,6 +54,15 @@ void shiftOut(PinName dataPinName, PinName clockPinName, BitOrder bitOrder, uint
 pin_size_t indexShiftIn(pin_size_t data_index, pin_size_t clock_index, BitOrder bitOrder);
 pin_size_t shiftIn(PinName dataPinName, PinName clockPinName, BitOrder bitOrder);
 
+void indexAttachInterrupt(pin_size_t index, voidFuncPtr callback, PinStatus mode);
+void attachInterrupt(PinName pinName, voidFuncPtr callback, PinStatus mode);
+
+void indexAttachInterruptParam(pin_size_t index, voidFuncPtrParam callback, PinStatus mode, void* param);
+void attachInterruptParam(PinName pinName, voidFuncPtrParam callback, PinStatus mode, void* param);
+
+void indexDetachInterrupt(pin_size_t index);
+void detachInterrupt(PinName pinName);
+
 #ifdef __cplusplus
 
 void            indexTone(pin_size_t index, unsigned int frequency, unsigned long duration = 0);
@@ -57,6 +70,73 @@ unsigned long   indexPulseIn(pin_size_t index, uint8_t state, unsigned long time
 unsigned long   pulseIn(PinName pinName, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long   indexPulseInLong(pin_size_t index, uint8_t state, unsigned long timeout = 1000000L);
 unsigned long   pulseInLong(PinName pinName, uint8_t state, unsigned long timeout = 1000000L);
+
+#if DEVICE_INTERRUPTIN
+
+namespace arduino {
+
+class InterruptInParam : public mbed::InterruptIn {
+private:
+protected:
+public:
+    /** Create an InterruptIn connected to the specified pin
+     *
+     *  @param pin InterruptIn pin to connect to
+     */
+    InterruptInParam(PinName pin);
+
+    /** Create an InterruptIn connected to the specified pin,
+     *  and the pin configured to the specified mode.
+     *
+     *  @param pin InterruptIn pin to connect to
+     *  @param mode Desired Pin mode configuration.
+     *  (Valid values could be PullNone, PullDown, PullUp and PullDefault.
+     *  See PinNames.h for your target for definitions)
+     *
+     */
+    InterruptInParam(PinName pin, PinMode mode);
+
+    virtual ~InterruptInParam();
+
+    /** Attach a function to call when a rising edge occurs on the input
+     *
+     *  @param func A pointer to a void function with argument, or 0 to set as none
+     */
+    void rise(Callback<void(void*)> func, void* param);
+
+    /** Attach a function to call when a rising edge occurs on the input
+     *
+     *  @param func A pointer to a void function, or 0 to set as none
+     */
+    void rise(Callback<void()> func);   // shadows InterruptIn::rise
+
+    /** Attach a function to call when a falling edge occurs on the input
+     *
+     *  @param func A pointer to a void function with argument, or 0 to set as none
+     */
+    void fall(Callback<void(void*)> func, void* param);
+
+    /** Attach a function to call when a falling edge occurs on the input
+     *
+     *  @param func A pointer to a void function, or 0 to set as none
+     */
+    void fall(Callback<void()> func);   // shadows InterruptIn::fall
+
+    static void _irq_handler(uint32_t id, gpio_irq_event event);
+
+protected:
+    Callback<void(void*)> _rise;    // shadows InterruptIn::_rise
+    Callback<void(void*)> _fall;    // shadows InterruptIn::_fall
+
+    void* _rise_param = nullptr;    
+    void* _fall_param = nullptr;
+
+    void irq_init(PinName pin);     // shadows InterruptIn::irq_init
+};
+
+} // namespace arduio
+
+#endif //DEVICE_INTERRUPTIN
 
 #endif // __cplusplus
 
