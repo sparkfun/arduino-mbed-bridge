@@ -20,16 +20,37 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#ifndef _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_
+#define _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_
+
 #include "Arduino.h"
 
-int main(void)
-{
-  init();
-  initVariant();
-  setup();
-  for (;;)
-  {
-    loop();
-  }
-  return 0;
-}
+typedef struct _PinState {
+    PinName name;
+    pin_size_t number;
+    arduino::InterruptInParam* irq;
+    // PwmOut* pwm; // todo: implement this
+    // AnalogOut* dac; // todo: implement this
+    // AnalogIn* adc; // todo: implement this
+    DigitalInOut* gpio;
+} PinState;
+
+pin_size_t pinIndexByName(PinName name);
+pin_size_t pinIndexByNumber(pin_size_t number);
+
+pin_size_t pinNumberByIndex(pin_size_t index);
+pin_size_t pinNumberByName(PinName name);
+
+PinName pinNameByIndex(pin_size_t index);
+PinName pinNameByNumber(pin_size_t number);
+
+#define pinIRQByIndex(I) variantPinStates[I].irq
+#define pinPWMByIndex(I) variantPinStates[I].pwm
+#define pinDACByIndex(I) variantPinStates[I].dac
+#define pinADCByIndex(I) variantPinStates[I].adc
+#define pinGPIOByIndex(I) variantPinStates[I].gpio
+
+extern const pin_size_t variantPinCount;
+extern PinState variantPinStates[];
+
+#endif // _ARDUINO_MBED_BRIDGE_BRIDGE_PINS_H_

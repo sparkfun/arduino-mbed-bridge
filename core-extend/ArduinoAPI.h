@@ -20,16 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "Arduino.h"
+#ifndef _ARDUINO_MBED_BRIDGE_CORE_EXTEND_ARDUINOAPI_H_
+#define _ARDUINO_MBED_BRIDGE_CORE_EXTEND_ARDUINOAPI_H_
 
-int main(void)
-{
-  init();
-  initVariant();
-  setup();
-  for (;;)
-  {
-    loop();
-  }
-  return 0;
-}
+#include "core-extend/Common.h"
+
+#endif // _ARDUINO_MBED_BRIDGE_CORE_EXTEND_ARDUINOAPI_H_

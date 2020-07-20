@@ -20,16 +20,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "Arduino.h"
+#define PinMode Arduino_PinMode
+#include "core-api/api/Common.h"
+#undef PinMode
 
-int main(void)
-{
-  init();
-  initVariant();
-  setup();
-  for (;;)
-  {
-    loop();
-  }
-  return 0;
+#include "core-extend/Common.h"
+
+extern void initTimer(void);
+
+void init(void){
+    initTimer();
 }
