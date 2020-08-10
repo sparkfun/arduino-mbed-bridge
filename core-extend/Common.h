@@ -102,31 +102,31 @@ public:
      *
      *  @param func A pointer to a void function with argument, or 0 to set as none
      */
-    void rise(Callback<void(void*)> func, void* param);
+    void rise(mbed::Callback<void(void*)> func, void* param);
 
     /** Attach a function to call when a rising edge occurs on the input
      *
      *  @param func A pointer to a void function, or 0 to set as none
      */
-    void rise(Callback<void()> func);   // shadows InterruptIn::rise
+    void rise(mbed::Callback<void()> func);   // shadows InterruptIn::rise
 
     /** Attach a function to call when a falling edge occurs on the input
      *
      *  @param func A pointer to a void function with argument, or 0 to set as none
      */
-    void fall(Callback<void(void*)> func, void* param);
+    void fall(mbed::Callback<void(void*)> func, void* param);
 
     /** Attach a function to call when a falling edge occurs on the input
      *
      *  @param func A pointer to a void function, or 0 to set as none
      */
-    void fall(Callback<void()> func);   // shadows InterruptIn::fall
+    void fall(mbed::Callback<void()> func);   // shadows InterruptIn::fall
 
     static void _irq_handler(uint32_t id, gpio_irq_event event);
 
 protected:
-    Callback<void(void*)> _rise;    // shadows InterruptIn::_rise
-    Callback<void(void*)> _fall;    // shadows InterruptIn::_fall
+    mbed::Callback<void(void*)> _rise;    // shadows InterruptIn::_rise
+    mbed::Callback<void(void*)> _fall;    // shadows InterruptIn::_fall
 
     void* _rise_param = nullptr;    
     void* _fall_param = nullptr;

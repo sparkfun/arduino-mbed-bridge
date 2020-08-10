@@ -30,9 +30,9 @@ SOFTWARE.
 #include "bridge/pins.h"
 
 void indexPinMode(pin_size_t index, Arduino_PinMode pinMode){
-    DigitalInOut* gpio = pinGPIOByIndex(index);
+    mbed::DigitalInOut* gpio = pinGPIOByIndex(index);
     if( gpio == NULL ){
-        gpio = new DigitalInOut(pinNameByIndex(index));
+        gpio = new mbed::DigitalInOut(pinNameByIndex(index));
     }
     pinGPIOByIndex(index) = gpio;
 

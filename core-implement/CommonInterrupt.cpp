@@ -143,7 +143,7 @@ void InterruptInParam::irq_init(PinName pin)
     gpio_irq_init(&gpio_irq, pin, (&InterruptInParam::_irq_handler), (uint32_t)this);
 }
 
-void InterruptInParam::rise(Callback<void(void*)> func, void* param)
+void InterruptInParam::rise(mbed::Callback<void(void*)> func, void* param)
 {
     core_util_critical_section_enter();
     if (func) {
@@ -161,11 +161,11 @@ void InterruptInParam::rise(Callback<void(void*)> func, void* param)
     core_util_critical_section_exit();
 }
 
-void InterruptInParam::rise(Callback<void()> func){
+void InterruptInParam::rise(mbed::Callback<void()> func){
     error("InterruptInParam.rise called with 'void(void)' callback (should be 'void(void*)')\r\n");
 }
 
-void InterruptInParam::fall(Callback<void(void*)> func, void* param)
+void InterruptInParam::fall(mbed::Callback<void(void*)> func, void* param)
 {
     core_util_critical_section_enter();
     if (func) {
@@ -183,7 +183,7 @@ void InterruptInParam::fall(Callback<void(void*)> func, void* param)
     core_util_critical_section_exit();
 }
 
-void InterruptInParam::fall(Callback<void()> func){
+void InterruptInParam::fall(mbed::Callback<void()> func){
     error("InterruptInParam.fall called with 'void(void)' callback (should be 'void(void*)')\r\n");
 }
 

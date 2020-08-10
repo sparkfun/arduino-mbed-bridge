@@ -25,9 +25,9 @@ SOFTWARE.
 UART Serial;
 
 // redirect stdout / stdin to Serial
-FileHandle *mbed::mbed_override_console(int)
+mbed::FileHandle *mbed::mbed_override_console(int)
 {
-    return (FileHandle*)&Serial;
+    return (mbed::FileHandle*)&Serial;
 }
 
 UART::UART(PinName tx, PinName rx, PinName rts, PinName cts) : 

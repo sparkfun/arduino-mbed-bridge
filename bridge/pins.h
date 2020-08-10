@@ -29,10 +29,10 @@ typedef struct _PinState {
     PinName name;
     pin_size_t number;
     arduino::InterruptInParam* irq;
-    // PwmOut* pwm; // todo: implement this
-    // AnalogOut* dac; // todo: implement this
-    // AnalogIn* adc; // todo: implement this
-    DigitalInOut* gpio;
+    // mbed::PwmOut* pwm; // todo: implement this
+    // mbed::AnalogOut* dac; // todo: implement this
+    // mbed::AnalogIn* adc; // todo: implement this
+    mbed::DigitalInOut* gpio;
 } PinState;
 
 pin_size_t pinIndexByName(PinName name);
