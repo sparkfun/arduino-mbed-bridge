@@ -5,6 +5,8 @@
 
 #include "core-extend/Yield.h"
 
+#include "mbed.h"
+
 void yield( void ){
-  // do nothing
+  rtos::ThisThread::yield();
 }
