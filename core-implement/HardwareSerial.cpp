@@ -149,7 +149,7 @@ int UART::printf(const char *format, ...){
 
     va_list args;
     va_start(args, format);
-    const int space = vsnprintf(NULL, 0, format, args) + 1;
+    int space = vsnprintf(NULL, 0, format, args) + 1;
     char buf[space];
     memset(buf, 0x00, space);
     vsnprintf(buf, space, format, args);
