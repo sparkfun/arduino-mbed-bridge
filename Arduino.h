@@ -5,7 +5,10 @@
 
 // The "Arduino.h" header file is intended to only be included by C++ sources.
 
-#ifndef _ARDUINO_MBED_BRIDGE_ARDUINO_H_
+#if ARDUINO_LIBRARY_DISCOVERY_PHASE == 1
+#define ARDUINO_LIB_DISCOVERY_PHASE
+#endif
+#if !defined(_ARDUINO_MBED_BRIDGE_ARDUINO_H_) && !defined(ARDUINO_LIB_DISCOVERY_PHASE)
 #define _ARDUINO_MBED_BRIDGE_ARDUINO_H_
 
 #include "mbed.h"
