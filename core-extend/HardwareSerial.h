@@ -8,6 +8,7 @@
 
 #include "bridge/pins.h"
 #include "core-api/api/RingBuffer.h"
+#include "core-api/api/HardwareSerial.h"
 
 #define RX_BUF_LEN (256)
 
