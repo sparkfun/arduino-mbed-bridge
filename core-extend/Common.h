@@ -37,6 +37,9 @@ void shiftOut(PinName dataPinName, PinName clockPinName, BitOrder bitOrder, uint
 pin_size_t indexShiftIn(pin_size_t data_index, pin_size_t clock_index, BitOrder bitOrder);
 pin_size_t shiftIn(PinName dataPinName, PinName clockPinName, BitOrder bitOrder);
 
+#define interrupts() (void)am_hal_interrupt_master_disable()
+#define noInterrupts() (void) am_hal_interrupt_master_enable()
+
 void indexAttachInterrupt(pin_size_t index, voidFuncPtr callback, PinStatus mode);
 void attachInterrupt(PinName pinName, voidFuncPtr callback, PinStatus mode);
 
